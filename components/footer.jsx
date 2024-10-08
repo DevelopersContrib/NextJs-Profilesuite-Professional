@@ -37,6 +37,10 @@ export default function Footer({domain,twitter_url,fb_url,linkedin_url}) {
               </div>
               <div className="col-xl-4">
                 <h3 className="tw-uppercase tw-text-2xl">Join Us Today</h3>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Enter your email" />
+                  <button class="btn btn-outline-primary" type="button">Submit</button>
+                </div>
               </div>
             </div>
           </div>
