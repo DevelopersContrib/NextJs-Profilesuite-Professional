@@ -5,6 +5,7 @@ import Profile from "../components/profile";
 import Platform from "../components/platform";
 import OurApps from "../components/ourapps";
 import { getData, getDomain, getTopsites, getScript } from "../lib/data";
+import HeaderWidget from "@/components/HeaderWidget"
 
 export default async function Home() {
   const c = await getData();
@@ -27,7 +28,9 @@ export default async function Home() {
 
   return (
     <>
-      <Navigation domain={domain} />
+     <HeaderWidget domain={domain} piwikId={c.data.piwikId} accountGA={c.data.accountGA} adsenseClientId={c.data.adsenseClientId}  />
+     
+      <Navigation domain={domain} logo={c.data.logo}/>
       <Hero />
       <Profile />
       <Platform />

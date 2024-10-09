@@ -59,3 +59,17 @@ export async function getBlogs() {
 
   return res.json();
 }
+
+
+export async function getProfiles() {
+  const url = process.env.GET_PROFILES
+  const res = await fetch(url, { next: { revalidate: 6000 } });
+ 
+  
+  if (!res.ok){
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}

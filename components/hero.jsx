@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link'
 
 export default function Hero() {
   return (
@@ -10,7 +11,7 @@ export default function Hero() {
             <p className="hero-description">
             Create and build your profile website in the professional universe in 2 minutes.
             </p>
-            <button className="hero-signup-btn">Sign Up Now</button>
+            <Link href="https://www.profilesuite.com/signup"><button className="hero-signup-btn">Sign Up Now</button></Link>
           </div>
 
          <div className="col-md-6">

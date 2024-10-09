@@ -1,61 +1,35 @@
+"use client";
 import Image from 'next/image';
-
-const profilesData = [
-  {
-    id: 1,
-    name: "John Doe",
-    intro: "I'm a computer engineer specializing in AI.",
-    image: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
-    socials: {
-      facebook: "https://facebook.com/johndoe",
-      twitter: "https://twitter.com/johndoe",
-      linkedin: "https://linkedin.com/in/johndoe",
-      instagram: "https://instagram.com/johndoe",
-      youtube: "https://youtube.com/johndoe"
-    }
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    intro: "I'm a digital marketer with a focus on SEO.",
-    image: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
-    socials: {
-      facebook: "https://facebook.com/janesmith",
-      twitter: "https://twitter.com/janesmith",
-      linkedin: "https://linkedin.com/in/janesmith",
-      instagram: "https://instagram.com/janesmith",
-      youtube: "https://youtube.com/janesmith"
-    }
-  },
-  {
-    id: 3,
-    name: "Alice Johnson",
-    intro: "I’m a software developer passionate about front-end.",
-    image: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
-    socials: {
-      facebook: "https://facebook.com/alicejohnson",
-      twitter: "https://twitter.com/alicejohnson",
-      linkedin: "https://linkedin.com/in/alicejohnson",
-      instagram: "https://instagram.com/alicejohnson",
-      youtube: "https://youtube.com/alicejohnson"
-    }
-  },
-  {
-    id: 4,
-    name: "Bob Williams",
-    intro: "I’m a UX/UI designer creating intuitive interfaces.",
-    image: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
-    socials: {
-      facebook: "https://facebook.com/bobwilliams",
-      twitter: "https://twitter.com/bobwilliams",
-      linkedin: "https://linkedin.com/in/bobwilliams",
-      instagram: "https://instagram.com/bobwilliams",
-      youtube: "https://youtube.com/bobwilliams"
-    }
-  }
-];
+import { useEffect, useState } from 'react';
+import LoadingState from './LoadingState';
+import Link from 'next/link'
 
 export default function Profile() {
+  const [profileData, setprofileData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/profiles", { next: { revalidate: 6000} });
+        if (response.ok) {
+          const res = await response.json();
+          setprofileData(res.profiles);
+          setIsLoading(false);
+        } else {
+          alert('An error occurred');
+        }
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  console.log(profileData)
+  
   return (
     <section className="profile-section">
       <div className="container">
@@ -64,34 +38,44 @@ export default function Profile() {
             <h2 className="profile-title fw-bold">Explore Profiles</h2>
             <p className="lead">Meet our talented professionals and connect with them!</p>
           </div>
+          {isLoading ? (
+        <LoadingState />
+      ) : (
+        <>
 
-          {profilesData.map(profile => (
+          {profileData.map(profile => (
             <div key={profile.id} className="col-md-3 d-flex">
               <ProfileCard {...profile} />
             </div>
           ))}
+           </>
+      )}
         </div>
         <div className="row">
-            <div className='col text-center'><button className="profile-btn">View More</button></div>
+            <div className='col text-center'> <Link href="https://www.profilesuite.com/discover" target='_blank'><button className="profile-btn">View More</button></Link></div>
         </div>
       </div>
     </section>
   );
 }
 
-function ProfileCard({ name, intro, image, socials }) {
+function ProfileCard({ domain, name, intro, image, socials }) {
+  const [imgSrc, setImgSrc] = useState(image);
   return (
     <div className="profile-card d-flex flex-column text-center">
       <Image
-        src={image}
-        alt={`${name}'s Profile`}
+        src={imgSrc}
+        alt={name}
         width={100}
         height={100}
         className="profile-image mx-auto"
+        onError={() => {
+          setImgSrc('https://cdn.vnoc.com/logos/logo-ProfileSuite-2.png');
+      }}
       />
       <h3 className="profile-name">{name}</h3>
       <p className="profile-intro">{intro}</p>
-      <button className="view-profile-btn mt-auto">View Profile</button>
+      <Link href={`https://${domain}`} target='_blank'><button className="view-profile-btn mt-auto">View Profile</button></Link>
       <div className="social-icons">
         {socials.facebook && (
           <a href={socials.facebook} target="_blank" rel="noopener noreferrer">

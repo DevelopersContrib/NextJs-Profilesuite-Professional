@@ -5,15 +5,7 @@ import { useEffect } from "react";
 const HeaderWidget = ({ domain, piwikId, accountGA, adsenseClientId }) => {
   
   useEffect(() => {
-    const fWidget = () => {
-      let widgetContainer = document.getElementsByClassName("fheader-script")[0];
-      let script = document.createElement("script");
-      script.src = `https://tools.contrib.com/widget/fheader?d=${domain}&container=fheader-script`;
-      script.async = true;
-  
-      widgetContainer.appendChild(script);
-    };
-  
+   
     const piwikScript = () => {
       let script = document.createElement("script");
       script.async = true;
@@ -58,7 +50,7 @@ const HeaderWidget = ({ domain, piwikId, accountGA, adsenseClientId }) => {
       document.getElementsByTagName("head")[0].appendChild(script);
       document.getElementsByTagName("head")[0].appendChild(scriptCode);
     };
-    fWidget();
+    
 
     if (piwikId) {
       piwikScript();
