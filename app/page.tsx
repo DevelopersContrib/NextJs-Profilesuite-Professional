@@ -3,7 +3,7 @@ import Footer from "../components/footer";
 import Hero from "../components/hero";
 import Profile from "../components/profile";
 import Platform from "../components/platform";
-import OurApps from "../components/ourapps";
+import OurApps from "../components/OurApps";
 import { getData, getDomain, getTopsites, getScript } from "../lib/data";
 import HeaderWidget from "@/components/HeaderWidget"
 
