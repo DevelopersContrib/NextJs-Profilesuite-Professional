@@ -5,10 +5,10 @@ export default function Logo({domain,logo}) {
     return (
         <Image 
               src={logo}
-              width={300}
-              height={300}
+              width={200}
+              height={200}
               alt=""
-              className='d-inline-flex img-fluid mb-3'
+              className='d-inline-flex img-fluid'
             />
     )
   }else{

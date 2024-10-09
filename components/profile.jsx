@@ -44,7 +44,7 @@ export default function Profile() {
         <>
 
           {profileData.map(profile => (
-            <div key={profile.id} className="col-md-3 d-flex">
+            <div key={profile.id} className="col-md-3 mb-4">
               <ProfileCard {...profile} />
             </div>
           ))}
