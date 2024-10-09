@@ -66,8 +66,8 @@ function ProfileCard({ domain, name, intro, image, socials }) {
       <Image
         src={imgSrc}
         alt={name}
-        width={100}
-        height={100}
+        width={128}
+        height={128}
         className="profile-image mx-auto"
         onError={() => {
           setImgSrc('https://cdn.vnoc.com/logos/logo-ProfileSuite-2.png');
