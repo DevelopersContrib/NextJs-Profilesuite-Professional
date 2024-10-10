@@ -31,7 +31,7 @@ export default async function Home() {
      <HeaderWidget domain={domain} piwikId={c.data.piwikId} accountGA={c.data.accountGA} adsenseClientId={c.data.adsenseClientId}  />
      
       <Navigation domain={domain} logo={c.data.logo}/>
-      <Hero />
+      <Hero domain={domain}/>
       <Profile />
       <Platform />
       <OurApps />

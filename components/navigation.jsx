@@ -7,7 +7,7 @@ export default function Navigation({ domain,logo }) {
       <div className="container">
       <Logo domain={domain} logo={logo} />
         <div className="navs">
-          <Link href="https://www.profilesuite.com/signup" target='_blank'><button className="signup-btn">Sign Up</button></Link>
+          <Link href={`https://www.profilesuite.com/signup?domain=${domain}`} target='_blank'><button className="signup-btn">Sign Up</button></Link>
         </div>
       </div>
     </section>
