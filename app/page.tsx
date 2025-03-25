@@ -4,8 +4,9 @@ import Hero from "../components/hero";
 import Profile from "../components/profile";
 import Platform from "../components/platform";
 import OurApps from "../components/OurApps";
+import { CTABannerSection } from "../components/ctabanner";
 import { getData, getDomain, getTopsites, getScript } from "../lib/data";
-import HeaderWidget from "@/components/HeaderWidget"
+import HeaderWidget from "@/components/HeaderWidget";
 
 export default async function Home() {
   const c = await getData();
@@ -14,7 +15,7 @@ export default async function Home() {
   const background =
     c.data.background_url !== undefined && c.data.background_url !== null
       ? c.data.background_url
-      : "https://cdn.vnoc.com/background/tech4.jpg";
+      : "https://cdn.vnoc.com/profilesuite/professional.jpg";
   const description = c.data.description;
   const title = c.data.title;
   const twitter_url = c.data.twitter;
@@ -28,13 +29,19 @@ export default async function Home() {
 
   return (
     <>
-     <HeaderWidget domain={domain} piwikId={c.data.piwikId} accountGA={c.data.accountGA} adsenseClientId={c.data.adsenseClientId}  />
-     
-      <Navigation domain={domain} logo={c.data.logo}/>
-      <Hero domain={domain}/>
+      <HeaderWidget
+        domain={domain}
+        piwikId={c.data.piwikId}
+        accountGA={c.data.accountGA}
+        adsenseClientId={c.data.adsenseClientId}
+      />
+
+      <Navigation domain={domain} logo={c.data.logo} />
+      <Hero domain={domain} />
       <Profile />
       <Platform />
       <OurApps />
+      <CTABannerSection />
       <Footer
         domain={domain}
         twitter_url={twitter_url}
