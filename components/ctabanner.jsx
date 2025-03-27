@@ -4,7 +4,7 @@ import Link from "next/link";
 export function CTABannerSection() {
   return (
     <section
-      className="pt-1 pb-5 mb-5 text-center"
+      className="banner-section text-center bg-white"
       style={{ display: "flex", alignItems: "center" }}
     >
       <div className="container">

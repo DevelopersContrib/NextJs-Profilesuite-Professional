@@ -29,7 +29,7 @@ const platformData = [
 
 export default function Platform() {
   return (
-    <section className="platform-section bg-cgray">
+    <section className="platform-section bg-white">
       <div className="container">
         <div className="row align-items-stretch">
           <div className="col-md-12 text-center mb-4">

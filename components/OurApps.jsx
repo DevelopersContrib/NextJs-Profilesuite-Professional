@@ -51,7 +51,7 @@ const appData = [
 
 export default function App() {
   return (
-    <section className="app-section">
+    <section className="app-section bg-cgray">
       <div className="container">
         <div className='row'>
             <div className="col-md-12 text-center mb-4">
