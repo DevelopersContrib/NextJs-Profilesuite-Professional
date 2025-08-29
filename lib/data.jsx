@@ -15,15 +15,15 @@ export async function getData() {
   const res = await fetch(
     url,
     {
-      mode: "cors",
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-      },
+      // mode: "cors",
+      // headers: {
+      //   "User-Agent": "Mozilla/5.0",
+      // },
       next: { revalidate: 3600 },
     },
     30000
   );
-
+  // console.log("resss::", await res.json());
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");

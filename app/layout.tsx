@@ -8,19 +8,14 @@ export async function generateMetadata() {
   const c = await getData();
 
   return {
-    title:
-      c.data.title === "" ? "Welcome to " + c.data.domainName : c.data.title,
+    title: c.data.title === "" ? "Welcome to " + c.data.domainName : c.data.title,
     description: c.data.description,
     keywords: c.data.keywords,
     author: c.data.author,
   };
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>{children}</body>
