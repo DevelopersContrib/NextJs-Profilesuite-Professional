@@ -3,13 +3,10 @@ import axios from "axios";
 import { profileDemoList } from "./profileDemoData";
 
 /**
- * In production, only `GET_PROFILES` is used — mock data is never returned (even if env flags are set).
- * In development, missing/failing API falls back to `profileDemoList`, or set NEXT_PUBLIC_PROFILE_MOCK=0 to see empty/errors.
+ * When `GET_PROFILES` is missing or fails, fall back to `profileDemoList` (all environments) unless
+ * `NEXT_PUBLIC_PROFILE_MOCK=0` — then return []. If `GET_PROFILES` is set and succeeds, the API response is used.
  */
 function shouldUseProfileMock() {
-  if (process.env.NODE_ENV === "production") {
-    return false;
-  }
   if (process.env.NEXT_PUBLIC_PROFILE_MOCK === "0") {
     return false;
   }
@@ -195,11 +192,9 @@ export async function getProfilesList() {
       return profileDemoList;
     }
     if (process.env.NODE_ENV === "development") {
-      console.warn("GET_PROFILES is not set; add it to .env to load real profile cards in dev.");
+      console.warn("GET_PROFILES is not set and mock is off; /api/profiles returns [].");
     } else {
-      console.error(
-        "GET_PROFILES is not set — /api/profiles will return an empty list. Set GET_PROFILES in the host (e.g. Vercel Project → Environment Variables) for the Production environment."
-      );
+      console.warn("GET_PROFILES is not set and NEXT_PUBLIC_PROFILE_MOCK=0; /api/profiles returns an empty list.");
     }
     return [];
   }

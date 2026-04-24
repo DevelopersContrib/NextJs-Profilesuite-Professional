@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import LoadingState from "./LoadingState";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faTwitter, faLinkedinIn, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
@@ -51,22 +50,11 @@ export default function Profile() {
             </div>
           ) : (
             profileData.length === 0 ? (
-              <div className="col-12">
-                <div className="profile-empty-state text-center py-2 py-md-4 max-w-lg mx-auto">
-                  <p className="profile-empty-hint mb-0">
-                    This spot will highlight hand-picked profile sites. Until then, explore the full directory on ProfileSuite—open live
-                    profiles in one click.
-                  </p>
-                  <Link
-                    href="https://www.profilesuite.com/discover"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="platform-btn text-decoration-none d-inline-flex align-items-center gap-2"
-                  >
-                    <span>Discover profiles</span>
-                    <FontAwesomeIcon icon={faArrowRight} aria-hidden />
-                  </Link>
-                </div>
+              <div className="col-12 text-center profile-empty-hint py-3 max-w-md mx-auto">
+                <p className="mb-2 mb-md-3">No featured profiles in this view yet.</p>
+                <Link href="https://www.profilesuite.com/discover" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
+                  <span className="profile-btn d-inline-flex align-items-center justify-content-center gap-2">Browse on ProfileSuite</span>
+                </Link>
               </div>
             ) : (
               profileData.map((profile, i) => (
