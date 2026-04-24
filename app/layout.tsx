@@ -1,8 +1,14 @@
+import { Inter } from "next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./custom.css";
-import Script from "next/script";
 import { getData } from "@/lib/data";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export async function generateMetadata() {
   const c = await getData();
@@ -17,8 +23,8 @@ export async function generateMetadata() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className={inter.variable} data-bs-theme="dark">
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

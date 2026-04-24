@@ -1,16 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter, faFacebookF, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import Image from "next/image";
 import Link from "next/link";
 import ErrorBlock from "./ErrorBlock";
 import SuccessBlock from "./SuccessBlock";
 
 export default function Footer({ domain, twitter_url, fb_url, linkedin_url }) {
-  const contri_link = "https://www.contrib.com/to/" + domain;
   const footer_text =
     "is a proud venture of Global Ventures,LLC.Join our network of performance based companies using " +
     domain +
@@ -84,22 +79,23 @@ export default function Footer({ domain, twitter_url, fb_url, linkedin_url }) {
 
   return (
     <>
-      <footer className="tw-text-white">
-        <section className="tw-bg-[#191919] tw-py-14">
+      <footer className="ps-footer">
+        <section className="ps-footer-main">
           <div className="container">
             <div className="row gy-3">
               <div className="col-xl-4">
-                <h3 className="tw-uppercase tw-text-2xl">{domain}</h3>
-                <div className="tw-no-underline text-secondary tw-inline-block">{footer_text}</div>
+                <h3 className="text-uppercase h5">{domain}</h3>
+                <div className="ps-footer-lead">{footer_text}</div>
               </div>
               <div className="col-xl-4">
-                <h3 className="tw-uppercase tw-text-2xl">Explore</h3>
+                <h3 className="text-uppercase h5">Explore</h3>
                 <ul className="list-unstyled">
                   <li>
                     <Link
                       href="https://medium.com/profilesuite"
                       target="_blank"
-                      className="tw-no-underline text-secondary tw-inline-block tw-capitalize"
+                      className="ps-footer-link d-inline-block text-capitalize py-1"
+                      rel="noopener noreferrer"
                     >
                       Blog
                     </Link>
@@ -108,7 +104,8 @@ export default function Footer({ domain, twitter_url, fb_url, linkedin_url }) {
                     <Link
                       href="https://profilesuite.tawk.help/"
                       target="_blank"
-                      className="tw-no-underline text-secondary tw-inline-block tw-capitalize"
+                      className="ps-footer-link d-inline-block text-capitalize py-1"
+                      rel="noopener noreferrer"
                     >
                       Support
                     </Link>
@@ -116,7 +113,7 @@ export default function Footer({ domain, twitter_url, fb_url, linkedin_url }) {
                 </ul>
               </div>
               <div className="col-xl-4">
-                <h3 className="tw-uppercase tw-text-2xl">Join Us Today</h3>
+                <h3 className="text-uppercase h5">Join Us Today</h3>
                 <div className="input-group mb-3">
                   <input
                     type="text"
@@ -125,6 +122,8 @@ export default function Footer({ domain, twitter_url, fb_url, linkedin_url }) {
                     placeholder="Enter your email"
                     value={data.email}
                     onChange={handleChange}
+                    autoComplete="email"
+                    inputMode="email"
                   />
                   <button
                     className="btn btn-outline-primary"
@@ -140,12 +139,11 @@ export default function Footer({ domain, twitter_url, fb_url, linkedin_url }) {
             </div>
           </div>
         </section>
-        <section className="tw-bg-[#111] tw-py-6">
+        <section className="ps-footer-sub">
           <div className="container">
             <div className="row">
-              <div className="col-xl-12">
-                &copy; {new Date().getFullYear()} <span className="tw-capitalize">{domain}</span>.
-                All Rights Reserved.
+              <div className="col-xl-12 text-capitalize">
+                &copy; {new Date().getFullYear()} {domain}. All rights reserved.
               </div>
             </div>
           </div>

@@ -1,50 +1,68 @@
-import Image from 'next/image';
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faCircleDollarToSlot,
+  faLayerGroup,
+  faCubes,
+} from "@fortawesome/free-solid-svg-icons";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 const platformData = [
   {
     id: 1,
-    title: "Profile Focused",
-    description: "We built this platform with a singularity that allows you to build a profile website in 2 minutes, with the apps that you need, with no need to learn code.",
-    icon: "https://cdn-icons-png.flaticon.com/256/7393/7393680.png",
+    title: "Profile first",
+    description: "A focused experience so you can publish a sharp profile site in about two minutes—with the modules you need, not a full page of clutter.",
+    icon: faUser,
   },
   {
     id: 2,
-    title: "No Hidden Fees",
-    description: "Our platform is free for your use and there are no hidden fees.",
-    icon: "https://cdn-icons-png.flaticon.com/256/7738/7738711.png",
+    title: "No hidden fees",
+    description: "The core platform is free to use. We keep pricing straightforward so you can build without watching for surprise charges.",
+    icon: faCircleDollarToSlot,
   },
   {
     id: 3,
-    title: "Apps Integrated",
-    description: "We built apps that you can use for free such as Contribution, Events, Shop, and Gigs.",
-    icon: "https://cdn-icons-png.flaticon.com/256/5364/5364357.png",
+    title: "Apps, integrated",
+    description: "Contribution, events, shop, gigs, and more work together in one place, so your audience finds everything in a single link.",
+    icon: faLayerGroup,
   },
   {
     id: 4,
-    title: "Blockchain Infused",
-    description: "You can use our blockchain profile NFT builder to create your unique NFT in your own universe.",
-    icon: "https://cdn-icons-png.flaticon.com/256/5270/5270185.png",
+    title: "Blockchain ready",
+    description: "Use the profile NFT tools to turn your professional presence into a unique, ownable asset in your own universe.",
+    icon: faCubes,
   },
 ];
 
-export default function Platform() {
-  return (
-    <section className="platform-section bg-white">
-      <div className="container">
-        <div className="row align-items-stretch">
-          <div className="col-md-12 text-center mb-4">
-          <h2 className="platform-top-title fw-bold">Our Platform Competitive Advantage</h2>
-            <p className="lead">Explore the unique features that make our platform stand out.</p>
-          </div>
+export default function Platform({ domain }) {
+  const signupUrl = `https://www.profilesuite.com/signup?domain=${domain}`;
 
+  return (
+    <section className="platform-section" aria-labelledby="platform-heading">
+      <div className="container">
+        <div className="row">
+          <div className="col-12 text-center section-head">
+            <p className="section-label mb-2">The platform</p>
+            <h2 id="platform-heading" className="section-title">
+              Why teams choose ProfileSuite
+            </h2>
+            <p className="section-lead">Everything you need to present, connect, and scale a modern professional presence.</p>
+          </div>
+        </div>
+        <div className="row g-4 g-lg-3 align-items-stretch mt-1">
           {platformData.map((feature) => (
-            <div key={feature.id} className="col-md-3 d-flex">
+            <div key={feature.id} className="col-md-6 col-xl-3 d-flex">
               <PlatformCard {...feature} />
             </div>
           ))}
         </div>
-        <div className="row">
-            <div className='col text-center'><button className="platform-btn">Sign Up Now!</button></div>
+        <div className="row pt-2">
+          <div className="col text-center">
+            <Link href={signupUrl} target="_blank" rel="noopener noreferrer" className="text-decoration-none">
+              <span className="platform-btn d-inline-flex align-items-center justify-content-center gap-2">Create your profile</span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -53,16 +71,12 @@ export default function Platform() {
 
 function PlatformCard({ title, description, icon }) {
   return (
-    <div className="platform-card d-flex flex-column text-center">
-      <Image
-        src={icon}
-        alt={`${title} Icon`}
-        width={64}
-        height={64}
-        className="platform-icon mx-auto"
-      />
+    <article className="platform-card d-flex flex-column text-start h-100 w-100">
+      <div className="platform-icon-wrap" aria-hidden>
+        <FontAwesomeIcon icon={icon} className="platform-fa" />
+      </div>
       <h3 className="platform-title">{title}</h3>
       <p className="platform-description">{description}</p>
-    </div>
+    </article>
   );
 }

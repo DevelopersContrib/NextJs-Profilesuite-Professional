@@ -5,27 +5,15 @@ import Profile from "../components/profile";
 import Platform from "../components/platform";
 import OurApps from "../components/OurApps";
 import { CTABannerSection } from "../components/ctabanner";
-import { getData, getDomain, getTopsites, getScript } from "../lib/data";
+import { getData, getDomain } from "../lib/data";
 import HeaderWidget from "@/components/HeaderWidget";
 
 export default async function Home() {
   const c = await getData();
   const domain = getDomain();
-  const topDomains = await getTopsites();
-  const background =
-    c.data.background_url !== undefined && c.data.background_url !== null
-      ? c.data.background_url
-      : "https://cdn.vnoc.com/profilesuite/professional.jpg";
-  const description = c.data.description;
-  const title = c.data.title;
   const twitter_url = c.data.twitter;
   const fb_url = c.data.fb;
   const linkedin_url = c.data.linkedin;
-  const follow_link = "https://www.contrib.com/signup/follow/" + domain;
-  const html = await getScript(
-    "https://e7lq80c199.execute-api.us-west-2.amazonaws.com/api1?key=5c1bde69a9e783c7edc2e603d8b25023&request=getcontent&url=" +
-      domain
-  );
 
   return (
     <>
@@ -39,7 +27,7 @@ export default async function Home() {
       <Navigation domain={domain} logo={c.data.logo} />
       <Hero domain={domain} />
       <Profile />
-      <Platform />
+      <Platform domain={domain} />
       <OurApps />
       <CTABannerSection />
       <Footer

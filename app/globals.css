@@ -1,9 +1,19 @@
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css');
+
+/* Inter is loaded via next/font in app/layout.tsx (--font-inter on <html>); body uses inter.className */
+html {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  color-scheme: dark;
+}
+
 body {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01" on, "cv05" on;
+  -webkit-font-smoothing: antialiased;
+  background: var(--ps-canvas, #020203);
+  color: var(--ps-ink, #f4f4f5);
+  min-height: 100dvh;
 }
 
 h1,
@@ -18,7 +28,8 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .font-300 {

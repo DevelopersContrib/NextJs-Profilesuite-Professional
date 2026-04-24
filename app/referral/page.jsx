@@ -1,6 +1,6 @@
 
 import ScriptLoader from '../../components/ScriptLoader'
-import { getData, getDomain, getTopsites } from '../../lib/data';
+import { getData, getDomain } from '../../lib/data';
 import HeaderWidget from '../../components/HeaderWidget';
 import Footer from '../../components/footer';
 

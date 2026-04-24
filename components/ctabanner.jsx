@@ -1,55 +1,52 @@
 "use client";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock, faChartLine, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export function CTABannerSection() {
   return (
-    <section
-      className="banner-section text-center bg-white"
-      style={{ display: "flex", alignItems: "center" }}
-    >
+    <section className="banner-section" aria-label="Staking and rewards">
       <div className="container">
         <div className="row justify-content-center">
-          <div
-            style={{
-              background: "linear-gradient(to right, #f59e0b, #ef4444, #f59e0b)",
-            }}
-            className="col-md-8 position-relative text-white rounded shadow-lg p-5"
-          >
-            <div
-              className="position-absolute start-50 translate-middle-x fs-1"
-              style={{ top: "-20px" }}
-            >
-              ✨
-            </div>
-
-            <h2 className="display-4 fw-bold mb-4 d-flex justify-content-center align-items-center gap-3">
-              🔒 Lock & Earn Big! 💰
-            </h2>
-
-            <div className="mx-auto bg-warning text-dark fw-bold fs-3 px-4 py-2 rounded border border-warning shadow">
-              🚀 ADAO Staking is Live!
-            </div>
-
-            <p className="fs-5 mt-3">
-              Earn passive rewards by staking ADAO. The longer you stake, the{" "}
-              <span className="fw-bolder">bigger the rewards!</span>
-            </p>
-
-            <div className="mt-3">
-              <Link
-                href="https://agentdao.com/staking"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-light fw-bold fs-4 rounded shadow"
-              >
-                💎 Stake & Earn Now!
-              </Link>
-            </div>
-            <div
-              className="position-absolute start-50 translate-middle-x fs-1"
-              style={{ bottom: "-20px" }}
-            >
-              ✨
+          <div className="col-lg-10 col-xl-8">
+            <div className="cta-slab">
+              <p className="cta-slab-eyebrow d-flex align-items-center justify-content-center gap-2 mb-2">
+                <span className="cta-slab-eyebrow-ico" aria-hidden>
+                  <FontAwesomeIcon icon={faLock} />
+                </span>
+                Ecosystem
+              </p>
+              <h2 className="cta-slab-title">Stake ADAO. Earn with aligned incentives.</h2>
+              <p className="cta-slab-lead">
+                Lock your tokens, earn ongoing rewards, and support the network. Longer lock-ups can unlock larger reward tiers—clear
+                rules, no guesswork.
+              </p>
+              <div className="d-flex flex-wrap align-items-center justify-content-center gap-2 gap-md-3 mt-3">
+                <span className="cta-slab-pill d-inline-flex align-items-center gap-2">
+                  <FontAwesomeIcon icon={faChartLine} aria-hidden />
+                  Staking is live
+                </span>
+              </div>
+              <div className="mt-4 d-flex flex-wrap align-items-center justify-content-center gap-3">
+                <Link
+                  href="https://agentdao.com/staking"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cta-slab-btn d-inline-flex align-items-center gap-2 text-decoration-none"
+                >
+                  Stake on AgentDAO
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="small" aria-hidden />
+                </Link>
+                <Link
+                  href="https://adao.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cta-slab-ghost d-inline-flex align-items-center text-decoration-none"
+                >
+                  Learn about ADAO
+                </Link>
+              </div>
             </div>
           </div>
         </div>

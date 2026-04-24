@@ -1,8 +1,11 @@
 "use client";
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import LoadingState from './LoadingState';
-import Link from 'next/link';
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import LoadingState from "./LoadingState";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF, faTwitter, faLinkedinIn, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export default function Profile() {
   const [profileData, setProfileData] = useState([]);
@@ -11,16 +14,16 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/profiles", { next: { revalidate: 6000 } });
+        const response = await fetch("/api/profiles", { cache: "no-store" });
         if (response.ok) {
           const res = await response.json();
-          setProfileData(res.profiles);
-          setIsLoading(false);
+          const list = res?.profiles;
+          setProfileData(Array.isArray(list) ? list : []);
         } else {
-          alert('An error occurred');
+          setProfileData([]);
         }
       } catch (error) {
-        console.error('Error fetching profiles:', error);
+        console.error("Error fetching profiles:", error);
       } finally {
         setIsLoading(false);
       }
@@ -28,32 +31,46 @@ export default function Profile() {
     fetchData();
   }, []);
 
-  console.log(profileData);
-
   return (
-    <section className="profile-section bg-cgray">
+    <section className="profile-section" aria-labelledby="profiles-heading">
       <div className="container">
-        <div className="row align-items-stretch">
-          <div className="col-md-12 text-center mb-4">
-            <h2 className="profile-title fw-bold">Explore Profiles</h2>
-            <p className="lead">Meet our talented professionals and connect with them!</p>
+        <div className="row">
+          <div className="col-12 text-center section-head">
+            <p className="section-label mb-2">Community</p>
+            <h2 id="profiles-heading" className="section-title">
+              Explore featured profiles
+            </h2>
+            <p className="section-lead">See how professionals present themselves—and open a live site in one click.</p>
           </div>
+        </div>
+        <div className="row g-4 align-items-stretch mt-1">
           {isLoading ? (
-            <LoadingState />
+            <div className="col-12">
+              <LoadingState />
+            </div>
           ) : (
-            <>
-              {profileData.map((profile) => (
-                <div key={profile.id} className="col-md-3 mb-4">
+            profileData.length === 0 ? (
+              <div className="col-12 text-center profile-empty-hint py-4 max-w-2xl mx-auto">
+                <p className="mb-0">
+                  No featured profiles right now. In production, the server must have <code>GET_PROFILES</code> set in environment variables
+                  (e.g. Vercel) and the upstream API must return profile rows. In local dev, mock cards fill in if the API is missing or
+                  errors; use <code>NEXT_PUBLIC_PROFILE_MOCK=0</code> to
+                  test without mock.
+                </p>
+              </div>
+            ) : (
+              profileData.map((profile, i) => (
+                <div key={profile.id ?? profile.domain ?? i} className="col-sm-6 col-lg-3 d-flex">
                   <ProfileCard {...profile} />
                 </div>
-              ))}
-            </>
+              ))
+            )
           )}
         </div>
         <div className="row">
           <div className="col text-center">
-            <Link href="https://www.profilesuite.com/discover" target="_blank">
-              <button className="profile-btn">View More</button>
+            <Link href="https://www.profilesuite.com/discover" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
+              <span className="profile-btn d-inline-flex align-items-center justify-content-center gap-2">Browse all profiles</span>
             </Link>
           </div>
         </div>
@@ -62,57 +79,61 @@ export default function Profile() {
   );
 }
 
-function ProfileCard({ domain, name, intro, image, socials }) {
-  const [imgSrc, setImgSrc] = useState(image);
+function ProfileCard({ domain, name, intro, image, socials: rawSocials }) {
+  const socials = rawSocials && typeof rawSocials === "object" ? rawSocials : {};
+  const [imgSrc, setImgSrc] = useState(image || "https://cdn.vnoc.com/logos/logo-ProfileSuite-2.png");
 
   return (
     <div className="profile-card d-flex flex-column h-100 text-center">
-      <div>
-        <Image
-          src={imgSrc}
-          alt={name}
-          width={128}
-          height={128}
-          className="profile-image mx-auto"
-          onError={() => {
-            setImgSrc('https://cdn.vnoc.com/logos/logo-ProfileSuite-2.png');
-          }}
-        />
+      <div className="profile-card-top">
+        <div className="profile-avatar-wrap mx-auto">
+          <Image
+            src={imgSrc}
+            alt=""
+            width={120}
+            height={120}
+            className="profile-image"
+            unoptimized
+            onError={() => {
+              setImgSrc("https://cdn.vnoc.com/logos/logo-ProfileSuite-2.png");
+            }}
+          />
+        </div>
         <h3 className="profile-name">{name}</h3>
         <p className="profile-intro">{intro}</p>
       </div>
 
-      <div className="social-icons mt-1 mb-2">
+      <div className="social-icons mt-2 mb-3">
         {socials.facebook && (
-          <a href={socials.facebook} target="_blank" rel="noopener noreferrer">
-            <Image src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width={24} height={24} />
+          <a href={socials.facebook} target="_blank" rel="noopener noreferrer" className="social-fab" aria-label="Facebook">
+            <FontAwesomeIcon icon={faFacebookF} />
           </a>
         )}
         {socials.twitter && (
-          <a href={socials.twitter} target="_blank" rel="noopener noreferrer">
-            <Image src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" width={24} height={24} />
+          <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="social-fab" aria-label="X / Twitter">
+            <FontAwesomeIcon icon={faTwitter} />
           </a>
         )}
         {socials.linkedin && (
-          <a href={socials.linkedin} target="_blank" rel="noopener noreferrer">
-            <Image src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" width={24} height={24} />
+          <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="social-fab" aria-label="LinkedIn">
+            <FontAwesomeIcon icon={faLinkedinIn} />
           </a>
         )}
         {socials.instagram && (
-          <a href={socials.instagram} target="_blank" rel="noopener noreferrer">
-            <Image src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width={24} height={24} />
+          <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className="social-fab" aria-label="Instagram">
+            <FontAwesomeIcon icon={faInstagram} />
           </a>
         )}
         {socials.youtube && (
-          <a href={socials.youtube} target="_blank" rel="noopener noreferrer">
-            <Image src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" width={24} height={24} />
+          <a href={socials.youtube} target="_blank" rel="noopener noreferrer" className="social-fab" aria-label="YouTube">
+            <FontAwesomeIcon icon={faYoutube} />
           </a>
         )}
       </div>
 
       <div className="mt-auto">
-        <Link href={`https://${domain}`} target="_blank">
-          <button className="view-profile-btn">View Profile</button>
+        <Link href={`https://${domain}`} target="_blank" rel="noopener noreferrer" className="text-decoration-none w-100">
+          <span className="view-profile-btn d-inline-flex w-100 align-items-center justify-content-center">View profile</span>
         </Link>
       </div>
     </div>
