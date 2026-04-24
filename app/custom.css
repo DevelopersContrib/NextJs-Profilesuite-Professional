@@ -647,6 +647,11 @@ ul.hero-trust,
   line-height: 1.55;
 }
 
+/* Empty “Community” block — one primary path to ProfileSuite Discover */
+.profile-empty-state .platform-btn {
+  margin-top: 1.5rem;
+}
+
 .profile-empty-hint code {
   color: var(--c-link);
   background: var(--ps-surface-raised);

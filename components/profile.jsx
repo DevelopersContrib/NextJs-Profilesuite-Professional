@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import LoadingState from "./LoadingState";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faTwitter, faLinkedinIn, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
@@ -50,13 +51,22 @@ export default function Profile() {
             </div>
           ) : (
             profileData.length === 0 ? (
-              <div className="col-12 text-center profile-empty-hint py-4 max-w-2xl mx-auto">
-                <p className="mb-0">
-                  No featured profiles right now. In production, the server must have <code>GET_PROFILES</code> set in environment variables
-                  (e.g. Vercel) and the upstream API must return profile rows. In local dev, mock cards fill in if the API is missing or
-                  errors; use <code>NEXT_PUBLIC_PROFILE_MOCK=0</code> to
-                  test without mock.
-                </p>
+              <div className="col-12">
+                <div className="profile-empty-state text-center py-2 py-md-4 max-w-lg mx-auto">
+                  <p className="profile-empty-hint mb-0">
+                    This spot will highlight hand-picked profile sites. Until then, explore the full directory on ProfileSuite—open live
+                    profiles in one click.
+                  </p>
+                  <Link
+                    href="https://www.profilesuite.com/discover"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="platform-btn text-decoration-none d-inline-flex align-items-center gap-2"
+                  >
+                    <span>Discover profiles</span>
+                    <FontAwesomeIcon icon={faArrowRight} aria-hidden />
+                  </Link>
+                </div>
               </div>
             ) : (
               profileData.map((profile, i) => (
@@ -67,13 +77,15 @@ export default function Profile() {
             )
           )}
         </div>
-        <div className="row">
-          <div className="col text-center">
-            <Link href="https://www.profilesuite.com/discover" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
-              <span className="profile-btn d-inline-flex align-items-center justify-content-center gap-2">Browse all profiles</span>
-            </Link>
+        {profileData.length > 0 && !isLoading && (
+          <div className="row">
+            <div className="col text-center">
+              <Link href="https://www.profilesuite.com/discover" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
+                <span className="profile-btn d-inline-flex align-items-center justify-content-center gap-2">Browse all profiles</span>
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
