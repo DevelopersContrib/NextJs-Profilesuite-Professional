@@ -721,6 +721,40 @@ ul.hero-trust,
   border-top: 1px solid var(--ps-border);
 }
 
+.app-section-head {
+  max-width: 44rem;
+  margin-bottom: 0.75rem;
+}
+
+.app-section-head .section-title {
+  margin-bottom: 0.55rem;
+}
+
+.app-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.95rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--ps-primary) 14%, var(--ps-surface));
+  border: 1px solid color-mix(in srgb, var(--ps-primary) 35%, var(--ps-border));
+  color: var(--c-link);
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 6%, transparent);
+}
+
+.app-section-label-icon {
+  font-size: 0.75rem;
+  opacity: 0.95;
+}
+
+.app-section-lead {
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .app-icon-wrap {
   width: 3.25rem;
   height: 3.25rem;

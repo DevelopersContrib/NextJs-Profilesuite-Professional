@@ -9,6 +9,7 @@ import {
   faClipboardList,
   faRss,
   faNewspaper,
+  faPuzzlePiece,
 } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
@@ -66,12 +67,21 @@ export default function OurApps() {
     <section className="app-section" aria-labelledby="apps-heading">
       <div className="container">
         <div className="row">
-          <div className="col-12 text-center section-head">
-            <p className="section-label mb-2">Modules</p>
+          <div className="col-12 text-center section-head app-section-head">
+            <p className="section-label app-section-label mb-3">
+              <FontAwesomeIcon
+                icon={faPuzzlePiece}
+                className="app-section-label-icon"
+                aria-hidden
+              />
+              Modules
+            </p>
             <h2 id="apps-heading" className="section-title">
               Apps that plug into your profile
             </h2>
-            <p className="section-lead">Switch on the experiences your audience needs—one stack, one link.</p>
+            <p className="section-lead app-section-lead">
+              Turn on shops, events, community, and more—one modular stack behind a single link.
+            </p>
           </div>
         </div>
         <div className="row g-4 align-items-stretch mt-1">
